@@ -26,7 +26,6 @@ public class ExcelUtils {
 	public int getRowCount() {
 
 		int rowCount= sheet.getPhysicalNumberOfRows();
-		System.out.println("Number of rows :"+rowCount);
 		return rowCount;
 
 
@@ -34,14 +33,12 @@ public class ExcelUtils {
 	public int getColCount() {
 
 		int colCount= sheet.getRow(0).getPhysicalNumberOfCells();
-		System.out.println("Number of cols :"+colCount);
 		return colCount;
 
 	}
 	public String getStringColumnData(int rowNum, int colNum) {
 
 		String value= sheet.getRow(rowNum).getCell(colNum).getStringCellValue();
-		//System.out.println("username:"+value);
 		return value;
 
 	}
@@ -49,7 +46,6 @@ public class ExcelUtils {
 	public Object getNumColumnData(int rowNum, int colNum) {
 
 		double value1= sheet.getRow(rowNum).getCell(colNum).getNumericCellValue();
-	//	System.out.println("pass:"+value1);
 		return value1;
 
 

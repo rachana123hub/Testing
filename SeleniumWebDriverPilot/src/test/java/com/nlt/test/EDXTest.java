@@ -18,37 +18,44 @@ public class EDXTest extends ExtentReportBase {
 	@BeforeTest
 	public void DriverSetup() {
 
-		//		WebDriverManager.firefoxdriver().setup();
-		//		driver=new FirefoxDriver();
-
 		WebDriverManager.chromedriver().setup();
 		driver=new ChromeDriver();
-		
+
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("https://www.edx.org/");
+
 	}
 
 	@Test(priority = 1)
-	public void SearchTest() throws InterruptedException {
+	public void SearchTest() {
 
 		test= extent.createTest("Search Tab Test","Sample discribe the EDX search test");
-		
+
 		//search the content on search tab
 		driver.findElement(By.id("home-search")).sendKeys("Software");
 		//click on search button
 		driver.findElement(By.xpath("//button[contains(text(),'Search')]")).click();
-		Thread.sleep(3000);
+
+
 	}
-	
 
-	@Test(dataProvider = "test1Data", dataProviderClass = com.nlt.util.ExcelDataProvider.class, priority = 2)
-	public void registrationFormTest(String fullname, String username, String emailId, String password) throws InterruptedException {
+	@Test(priority = 2)
+	public void registerButtonTest() {
 
-		test= extent.createTest("Registeration Test","Sample discribe the registeration form  test");
-	
+		test= extent.createTest("Register Button Test","Sample discribe the EDX Register Button test");
+
 		//click on register button
 		driver.findElement(By.linkText("Register")).click();
+
+	}
+
+
+	@Test(dataProvider = "test1Data", dataProviderClass = com.nlt.util.ExcelDataProvider.class, priority = 3)
+	public void registrationFormTest(String fullname, String username, String emailId, String password)  {
+
+		test= extent.createTest("Registeration Test","Sample discribe the registeration form  test");
+
 		//enter fullname
 		driver.findElement(By.xpath("//input[@id='register-name']")).sendKeys(fullname);
 		//enter public username
@@ -60,18 +67,14 @@ public class EDXTest extends ExtentReportBase {
 		//select country
 		Select country = new Select(driver.findElement(By.name("country")));
 		country.selectByValue("IN");
+		driver.navigate().refresh();
 
-		//driver.findElement(By.id("toggle_optional_fields")).click();
-		//driver.findElement(By.xpath("//button[contains(text(),'Create Account')]"));
-
-
-		//Thread.sleep(3000);
 
 	}
 
 
-	@Test(dataProvider = "test2Data", dataProviderClass = com.nlt.util.ExcelDataProvider.class , priority = 3)
-	public void loginTest( String emailId, String password) throws InterruptedException {
+	@Test(dataProvider = "test2Data", dataProviderClass = com.nlt.util.ExcelDataProvider.class , priority = 4)
+	public void loginTest( String emailId, String password) {
 
 		test= extent.createTest("Login Test","Sample discribe the login and logout test");
 
@@ -89,9 +92,6 @@ public class EDXTest extends ExtentReportBase {
 		driver.findElement(By.xpath("//div[contains(@class, 'open')]"));
 		//click on sign out
 		driver.findElement(By.linkText("Sign Out")).click();
-
-		//Thread.sleep(3000);
-
 
 	}
 

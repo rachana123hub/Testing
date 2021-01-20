@@ -24,7 +24,7 @@ public class ExtentReportBase {
 		extent = new ExtentReports();
 		spark = new ExtentSparkReporter("EdxTestReport.html");
 		extent.attachReporter(spark);
-		 
+
 		spark.config().setDocumentTitle("Automation Testing Demo Report");
 		spark.config().setReportName("Website Pilot Report");
 		spark.config().setTheme(Theme.DARK);
@@ -33,26 +33,26 @@ public class ExtentReportBase {
 
 	@AfterMethod
 	public void getResult(ITestResult result){
-		
+
 		test.log(Status.INFO,"Starting TestCase");
-		
+
 		if(result.getStatus() == ITestResult.FAILURE){
-			
+
 			test.log(Status.FAIL, MarkupHelper.createLabel(result.getName()+" Test case FAILED due to below issues:", ExtentColor.RED));
 			test.fail(result.getThrowable());
 		}
 		else if(result.getStatus() == ITestResult.SUCCESS){
-			
+
 			test.log(Status.PASS, MarkupHelper.createLabel(result.getName()+" Test Case PASSED", ExtentColor.GREEN));
 		}
 		else{
-			
+
 			test.log(Status.SKIP, MarkupHelper.createLabel(result.getName()+" Test Case SKIPPED", ExtentColor.ORANGE));
 			test.skip(result.getThrowable());
 		}
 		test.log(Status.INFO,"TestCase Completed");
 	}
-	
+
 	@AfterSuite
 	public void tearDown() {
 		extent.flush();
